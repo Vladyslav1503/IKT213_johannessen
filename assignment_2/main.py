@@ -18,7 +18,7 @@ def resize(image, width, height):
 
 
 def copy(image, emptyPictureArray):
-    width, height, channels = image.shape
+    height, width, channels = image.shape
     emptyPictureArray = np.zeros((width, height, channels), dtype=np.uint8)
 
     i = 0
@@ -40,15 +40,14 @@ def hsv(image):
 def hoe_shifted(image, emptyPictureArray, hue):
     MAX_VALUE = 255
 
-    width, height, channels = image.shape
+    height, width, channels = image.shape
     emptyPictureArray = np.zeros((width, height, channels), dtype=np.uint8)
 
     for i in range(height):
         for j in range(width):
             for k in range(channels):
                 value = int(image[i, j, k]) + hue
-                if  value > MAX_VALUE or value < 0:
-                    value = value % 256
+                value = max(0, min(MAX_VALUE, value))
                 emptyPictureArray[i, j, k] = value
 
     return emptyPictureArray
@@ -81,10 +80,10 @@ if __name__ == "__main__":
 
     crop_image = crop(img, 80, width, 80, height)
     crop_image_width, crop_image_height, _ = crop_image.shape
-    crop_image = crop(crop_image, 0, crop_image_width - 150, 0, crop_image_height - 150)
+    crop_image = crop(crop_image, 0, crop_image_width - 130, 0, crop_image_height - 130)
     cv.imwrite('solutions/cropped.png', crop_image)
 
-    resized_image = resize(crop_image, 200, 200)
+    resized_image = resize(img, 200, 200)
     cv.imwrite('solutions/resized.png', resized_image)
 
     copy_image = copy(img, [])
