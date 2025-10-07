@@ -37,7 +37,7 @@ def hsv(image):
     return cv.cvtColor(image, cv.COLOR_BGR2HSV)
 
 
-def hoe_shifted(image, emptyPictureArray, hue):
+def hue_shifted(image, emptyPictureArray, hue):
     MAX_VALUE = 255
 
     height, width, channels = image.shape
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     hsv_image = hsv(img)
     cv.imwrite('solutions/hsv.png', hsv_image)
 
-    hoe_shifted_image = hoe_shifted(img, [], 50)
+    hoe_shifted_image = hue_shifted(img, [], 50)
     cv.imwrite('solutions/hoe_shifted.png', hoe_shifted_image)
 
     smoothing_image = smoothing(img)
